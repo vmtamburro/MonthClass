@@ -1,0 +1,2 @@
+# MonthClass
+This program demonstrates a class that with member variables for the month name and the month number. It also demonstrates various overloaded default constructors, and automatically adjust the member variables accordingly. It also has prefix and postfix overloaded++ and overloaded-- operators. If the month number excedes 12 or decreases below 1, it automatically overloads itself. It also demonstrates overloaded&lt;&lt; and overloaded>> stream operators. 
