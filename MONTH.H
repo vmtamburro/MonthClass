@@ -5,8 +5,10 @@
 
 using namespace std;
 
+//class prototype
 class Month;
 
+//overloaded functions because they are friends of Month
 ostream &operator << (ostream &, const Month &);
 istream &operator >> (istream &, Month &);
 
@@ -15,10 +17,11 @@ class Month
 private:
     string name;
     int monthNumber;
-    void simplifyName();
-    void simplifyNum();
+    bool simplifyName();
+    bool simplifyNum();
 
 public:
+    //constructors
     Month()
     {
        monthNumber = 1;
@@ -42,6 +45,7 @@ public:
         name = s;
     }
 
+    //set functions
     void setMonthNum(int m)
     {
         monthNumber = m;
@@ -50,8 +54,11 @@ public:
     void setName(string n)
     {
         name = n;
+        simplifyNum();
 
     }
+
+    //get functions
     int getMonthNum()
     {
         return monthNumber;
@@ -61,12 +68,13 @@ public:
         return name;
     }
 
+    //prototypes defined in MonthFunctions.cpp
     Month operator++();
     Month operator++(int);
     Month operator--();
     Month operator--(int);
 
-    // Friends
+    // Friends defined in MonthFunctions.cpp
    friend ostream &operator << (ostream &, const Month &);
    friend istream &operator >> (istream &, Month &);
 };
