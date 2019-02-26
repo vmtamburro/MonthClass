@@ -3,9 +3,10 @@
 
 using namespace std;
 
-//********************************************
-void Month::simplifyName()
+//***********Member function to adjust name of month to month number*********************************
+bool Month::simplifyName()
 {
+    bool ret = true;
     if (monthNumber == 1)
         name = "January";
     else if(monthNumber==2)
@@ -40,11 +41,16 @@ void Month::simplifyName()
         monthNumber = 12;
         name = "December";
     }
+    else
+        ret = false;
+    return ret;
 
 }
-
-void Month::simplifyNum()
+//*************Member function to adjust Month Number to Name of Month**********************
+bool Month::simplifyNum()
 {
+    bool ret = true;
+
     if(name == "January")
         monthNumber = 1;
     else if(name == "February")
@@ -70,9 +76,14 @@ void Month::simplifyNum()
     else if(name == "December")
         monthNumber = 12;
     else
-        cout << "Month number error!"<<endl;
+    {
+        cout << "Error! Check spelling and capitalization. Enter a month name."<<endl;
+        ret = false;
+    }
+    return ret;
 }
 
+//*****************************Member Function that Overloads prefix ++***********************************
 Month Month::operator++()
 {
     ++monthNumber;
@@ -80,6 +91,7 @@ Month Month::operator++()
     return *this;
 }
 
+//****************************Member Function that overloads postfix++ ************************************
 Month Month::operator++(int)
 {
     Month temp(monthNumber, name);
@@ -88,6 +100,7 @@ Month Month::operator++(int)
     return temp;
 }
 
+//******************************Member Function that overloads prefix -- **********************************
 Month Month::operator--()
 {
     --monthNumber;
@@ -95,6 +108,7 @@ Month Month::operator--()
     return *this;
 }
 
+//**************************Member Function that overloads postfix -- *************************************
 Month Month::operator--(int)
 {
     Month temp(monthNumber, name);
@@ -103,14 +117,22 @@ Month Month::operator--(int)
     return temp;
 }
 
+//*************************Member Function that overloads >> operator **************************************
 istream &operator >> (istream &strm, Month &obj)
 {
+    bool valid = true;
+
+    do
+    {
     cout << "Month Name: ";
     strm >> obj.name;
-    obj.simplifyNum();
+    valid = obj.simplifyNum();
+    }while (valid == false);
+
     return strm;
 }
 
+//************************Member Function that overloads << operator***************************************
 ostream &operator<<(ostream &strm, const Month &obj)
 {
     strm << "Month #"<< obj.monthNumber << ": "<< obj.name<<endl;
